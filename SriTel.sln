@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping.Service", "SriTel.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SriTel.ApiGateway", "SriTel.ApiGateway\SriTel.ApiGateway\SriTel.ApiGateway.csproj", "{BD8D5078-E4F1-410C-ADE6-CF12A1753CF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SriTel.Infrastructure", "SriTel.Infrastructure\SriTel.Infrastructure\SriTel.Infrastructure.csproj", "{36F31C09-E321-4FF3-988E-2B3641CCB17D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SriTel.Shared", "SriTel.Shared\SriTel.Shared\SriTel.Shared.csproj", "{84FEABD0-28F7-45D3-9C68-C9B75517F87D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{BD8D5078-E4F1-410C-ADE6-CF12A1753CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD8D5078-E4F1-410C-ADE6-CF12A1753CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD8D5078-E4F1-410C-ADE6-CF12A1753CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F31C09-E321-4FF3-988E-2B3641CCB17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F31C09-E321-4FF3-988E-2B3641CCB17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F31C09-E321-4FF3-988E-2B3641CCB17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F31C09-E321-4FF3-988E-2B3641CCB17D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84FEABD0-28F7-45D3-9C68-C9B75517F87D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84FEABD0-28F7-45D3-9C68-C9B75517F87D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84FEABD0-28F7-45D3-9C68-C9B75517F87D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84FEABD0-28F7-45D3-9C68-C9B75517F87D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +76,7 @@ Global
 		{55ACEDB6-1210-49D8-BC2E-2B34D70DA64A} = {CE94D292-250D-45DC-8B9D-93A0762D6E8E}
 		{302DA796-64E5-45CA-8AD3-463236807FE9} = {CE94D292-250D-45DC-8B9D-93A0762D6E8E}
 		{BD8D5078-E4F1-410C-ADE6-CF12A1753CF3} = {09C94C97-7F62-4DD8-800C-FB0E3022DAF4}
+		{36F31C09-E321-4FF3-988E-2B3641CCB17D} = {AEC0B1FD-0766-4147-A9A0-6E7BDA6BB73B}
+		{84FEABD0-28F7-45D3-9C68-C9B75517F87D} = {FCE5910B-5F05-4BEF-886A-6AF67F47862F}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,6 @@
-﻿namespace Billing.Tests;
+﻿using NUnit.Framework;
+
+namespace Billing.Tests;
 
 public class Tests
 {
