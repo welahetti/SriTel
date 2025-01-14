@@ -8,6 +8,7 @@ namespace Billing.API
     [Route("api/[controller]")]
     public class BillingController : ControllerBase
     {
+
         private readonly IBillingService _billingService;
 
         public BillingController(IBillingService billingService)
