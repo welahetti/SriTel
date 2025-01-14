@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Billing.Service.Billing.Domain;
 
 namespace Billing.Domain
 {
-
     public class Bill
     {
         [Key]
@@ -23,7 +21,6 @@ namespace Billing.Domain
         public DateTime BillingDate { get; set; }  // The date the bill was generated
 
         public bool IsPaid { get; set; }  // Whether the bill has been paid 
-
 
         // Navigation property (logical, not persisted in DB)
         [NotMapped]

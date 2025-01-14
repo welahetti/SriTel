@@ -1,4 +1,4 @@
-﻿using Billing.Service.Billing.Domain;
+﻿using Billing.Domain;
 
 namespace Billing.Service.Billing.Application.ExternalServices
 {

@@ -1,5 +1,4 @@
 ﻿using Billing.Domain;
-using Billing.Service.Billing.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Billing.Service.Billing.Infrastructure
@@ -11,16 +10,25 @@ namespace Billing.Service.Billing.Infrastructure
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Payment> Payments { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure relationships
+            // Configure relationships and set delete behavior to prevent multiple cascade paths
             modelBuilder.Entity<Bill>()
                 .HasMany(b => b.Payments)
-                .WithOne()
-                .HasForeignKey(p => p.BillID);
+                .WithOne(p => p.Bill)  // Explicitly define the relationship on the Payment side
+                .HasForeignKey(p => p.BillID)
+                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascading delete from Bill to Payment
 
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Bill)
+                .WithMany(b => b.Payments)
+                .HasForeignKey(p => p.BillID)
+                .OnDelete(DeleteBehavior.Restrict);  // Prevent cascading delete from Payment to Bill
         }
     }
+    
 }

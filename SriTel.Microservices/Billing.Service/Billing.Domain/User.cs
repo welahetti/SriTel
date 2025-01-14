@@ -1,7 +1,6 @@
-﻿using Billing.Domain;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Billing.Service.Billing.Domain
+namespace Billing.Domain
 {
     public class User
     {

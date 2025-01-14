@@ -31,7 +31,7 @@ namespace Billing.Application.Services
             };
         }
 
-        public async Task<IEnumerable<Bill>> GetUserBillsAsync(int userId)
+        public async Task<IEnumerable<Bill>> GetBillsByUserAsync(Guid userId)
         {
             var bills = await _billRepository.GetBillsByBillIdAsync(userId);
 
