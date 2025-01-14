@@ -1,16 +1,15 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/billing/{everything}",
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+      "UpstreamPathTemplate": "/billing/swagger/v1/swagger.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5001
+          "Port": 5205
         }
-      ],
-      "UpstreamPathTemplate": "/billing/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      ]
     },
     {
       "DownstreamPathTemplate": "/api/customer/{everything}",

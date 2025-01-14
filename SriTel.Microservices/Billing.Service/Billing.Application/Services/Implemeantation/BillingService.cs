@@ -1,19 +1,18 @@
 ﻿using Billing.Domain;
 using Billing.Service.Billing.Application.ExternalServices;
-using Billing.Service.Billing.Application.Services.Interfaces;
-using SriTel.Repositories.Implementations;
+using SriTel.Billing.Application.Services.Interfaces;
+using SriTel.Billing.Repositories.Implementations;
+using SriTel.Billing.Repositories.Interfaces;
 
-namespace Billing.Application.Services
+namespace SriTel.Billing.Application.Services
 {
     public class BillingService : IBillingService
     {
-        private readonly BillRepository _billRepository;
-        private readonly CustomerServiceClient _customerServiceClient;
+        private readonly IBillingRepository _billRepository;
 
-        public BillingService(BillRepository billRepository, CustomerServiceClient customerServiceClient)
+        public BillingService(IBillingRepository billRepository)
         {
             _billRepository = billRepository;
-            _customerServiceClient = customerServiceClient;
         }
 
         public async Task<Bill> GetBillByIdAsync(Guid billId)
@@ -33,7 +32,7 @@ namespace Billing.Application.Services
 
         public async Task<IEnumerable<Bill>> GetBillsByUserAsync(Guid userId)
         {
-            var bills = await _billRepository.GetBillsByBillIdAsync(userId);
+            var bills = await _billRepository.GetBillsByUserAsync(userId);
 
             return bills.Select(b => new Bill
             {
@@ -73,14 +72,6 @@ namespace Billing.Application.Services
             throw new NotImplementedException();
         }
 
-        Task<Bill> IBillingService.GetBillByIdAsync(int billId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<Bill>> IBillingService.GetUserBillsAsync(int userId)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

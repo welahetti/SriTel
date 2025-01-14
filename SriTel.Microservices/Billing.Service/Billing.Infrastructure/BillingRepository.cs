@@ -3,11 +3,15 @@ using Billing.Service.Billing.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using SriTel.Billing.Repositories.Interfaces;
 
-namespace SriTel.Repositories.Implementations
+namespace SriTel.Billing.Repositories.Implementations
 {
-    public class BillRepository(BillingDbContext context) : IBillingRepository
+    public class BillingRepository: IBillingRepository
     {
-        private readonly BillingDbContext _context = context;
+        private readonly BillingDbContext _context;
+        public BillingRepository(BillingDbContext context)
+        {
+            _context = context;
+        }
 
         public async Task<Bill> GetBillAsync(Guid billId)
         {
