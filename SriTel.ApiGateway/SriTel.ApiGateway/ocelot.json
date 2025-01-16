@@ -1,9 +1,9 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/Billing/user/{userId}",
-      "UpstreamPathTemplate": "/api/Billing/user/{userId}",
-      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/api/Billing/{everything}",
+      "UpstreamPathTemplate": "/api/Billing/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

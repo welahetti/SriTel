@@ -14,8 +14,9 @@ namespace SriTel.Billing.Application.Services
         {
             _billRepository = billRepository;
         }
+      
 
-        public async Task<Bill> GetBillByIdAsync(Guid billId)
+        public async Task<Bill> GetBillByBillIdAsync(Guid billId)
         {
             var bill = await _billRepository.GetBillAsync(billId);
             if (bill == null) throw new Exception("Bill not found");

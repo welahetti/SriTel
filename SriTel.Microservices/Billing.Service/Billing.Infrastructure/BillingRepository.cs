@@ -33,9 +33,9 @@ namespace SriTel.Billing.Repositories.Implementations
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Bill>> GetBillsByBillIdAsync(Guid billId)
+        public async Task<Bill> GetBillByBillIdAsync(Guid billId)
         {
-            return await _context.Bills.Where(p => p.BillID == billId).ToListAsync();
+            return await _context.Bills.FirstOrDefaultAsync(b => b.BillID == billId);
         }
 
         public Task<IEnumerable<Bill>> GetBillsByBillIdAsync(int billId)
