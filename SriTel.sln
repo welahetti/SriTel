@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SriTel.Microservices", "Sri
 	ProjectSection(SolutionItems) = preProject
 		SriTel.Microservices\Billing.Service\appsettings.Development.json = SriTel.Microservices\Billing.Service\appsettings.Development.json
 		SriTel.Microservices\Billing.Service\appsettings.json = SriTel.Microservices\Billing.Service\appsettings.json
+		SriTel.Microservices\SriTel.Microservices.sln = SriTel.Microservices\SriTel.Microservices.sln
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Service", "SriTel.Microservices\Billing.Service\Billing.Service.csproj", "{F133932B-AB53-4739-9A43-D8E61834D5D3}"
