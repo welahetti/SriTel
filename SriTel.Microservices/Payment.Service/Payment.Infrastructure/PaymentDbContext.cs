@@ -1,7 +1,7 @@
-﻿using Payment.Domain;
+﻿using Payments.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Payment.Infrastructure
+namespace Payments.Infrastructure
 {
     public class PaymentDbContext : DbContext
     {
@@ -9,13 +9,13 @@ namespace Payment.Infrastructure
        
         public DbSet<Bill> Bills { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Pay> Payments { get; set; }
+        public DbSet<Domain.Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Pay>().HasKey(p => p.PaymentID);
+            modelBuilder.Entity<Payment>().HasKey(p => p.PaymentID);
         }
     }
 

@@ -1,9 +1,9 @@
-﻿using Payment.Domain;
+﻿using Payments.Domain;
 
-namespace Payment.Infrastructure
+namespace Payments.Infrastructure
 {
     public interface IPaymentRepository
     {
-        Task<IEnumerable<Pay>> GetPaymentsByUserIdAsync(Guid userId);
+        Task<IEnumerable<Domain.Payment>> GetPaymentsByUserIdAsync(Guid userId);
     }
 }

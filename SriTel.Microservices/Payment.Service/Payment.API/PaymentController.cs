@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Payment.Application;
+using Payments.Application;
 
-namespace Payment.API
+namespace Payments.API
 {
     [ApiController]
     [Route("api/[controller]")]

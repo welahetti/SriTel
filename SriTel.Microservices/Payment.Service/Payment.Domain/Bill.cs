@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Payment.Domain
+namespace Payments.Domain
 {   
         public class Bill
         {
@@ -26,7 +26,7 @@ namespace Payment.Domain
             [NotMapped]
             public User User { get; set; }
 
-            public ICollection<Pay> Payments { get; set; }
+            public ICollection<Payment> Payments { get; set; }
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Payment.Domain
+namespace Payments.Domain
 {
     public class User
     {

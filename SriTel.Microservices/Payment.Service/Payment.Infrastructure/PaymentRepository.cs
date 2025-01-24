@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Payment.Domain;
+using Payments.Domain;
 
-namespace Payment.Infrastructure
+namespace Payments.Infrastructure
 {
     public class PaymentRepository:IPaymentRepository 
     {
@@ -12,7 +12,7 @@ namespace Payment.Infrastructure
             _context = context;
         }
 
-        public async Task<IEnumerable<Pay>> GetPaymentsByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Domain.Payment>> GetPaymentsByUserIdAsync(Guid userId)
         {
             return await _context.Payments
                 .Where(p => p.Bill.UserID == userId)

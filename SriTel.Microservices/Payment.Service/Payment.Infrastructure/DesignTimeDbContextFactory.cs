@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using Payment.Infrastructure;
+using Payments.Infrastructure;
 
-namespace Payment.Service.Payment.Infrastructure
+namespace Payments.Service.Payment.Infrastructure
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<PaymentDbContext>
     {

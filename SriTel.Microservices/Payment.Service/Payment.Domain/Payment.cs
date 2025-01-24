@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Payment.Domain
+namespace Payments.Domain
 {
-    public class Pay
+    public class Payment
     {
         [Key]
         public Guid PaymentID { get; set; }

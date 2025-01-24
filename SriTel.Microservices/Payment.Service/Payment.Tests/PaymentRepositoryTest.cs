@@ -1,10 +1,10 @@
 ﻿using Moq;
-using Payment.Application;
-using Payment.Domain;
-using Payment.Infrastructure;
+using Payments.Application;
+using Payments.Domain;
+using Payments.Infrastructure;
 using Xunit;
 
-namespace Payment.Tests;
+namespace Payments.Tests;
 
 public class PaymentRepositoryTest
 {
@@ -13,9 +13,9 @@ public class PaymentRepositoryTest
     {
         // Arrange
         var userId = Guid.NewGuid();
-        var payments = new List<Pay>
+        var payments = new List<Domain.Payment>
     {
-        new Pay { PaymentID = Guid.NewGuid(), AmountPaid = 100, PaymentDate = DateTime.UtcNow }
+        new Domain.Payment { PaymentID = Guid.NewGuid(), AmountPaid = 100, PaymentDate = DateTime.UtcNow }
     };
         var mockRepository = new Mock<IPaymentRepository>();
         mockRepository.Setup(repo => repo.GetPaymentsByUserIdAsync(userId)).ReturnsAsync(payments);

@@ -1,6 +1,6 @@
-﻿using Payment.Infrastructure;
-using Payment.Domain;
-namespace Payment.Application
+﻿using Payments.Infrastructure;
+using Payments.Domain;
+namespace Payments.Application
 {
     public class PaymentService : IPaymentService
     {
@@ -11,10 +11,10 @@ namespace Payment.Application
             _paymentRepository = paymentRepository;
         }
 
-        public async Task<IEnumerable<Pay>> GetPaymentsByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Domain.Payment>> GetPaymentsByUserIdAsync(Guid userId)
         {
             var payments = await _paymentRepository.GetPaymentsByUserIdAsync(userId);
-            return payments.Select(payment => new Pay
+            return payments.Select(payment => new Payment
             {
                 PaymentID = payment.PaymentID,
                 AmountPaid = payment.AmountPaid,

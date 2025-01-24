@@ -1,10 +1,10 @@
 ﻿
-using Payment.Domain;
+using Payments.Domain;
 
-namespace Payment.Application
+namespace Payments.Application
 {
     public interface IPaymentService
     {
-        Task<IEnumerable<Pay>> GetPaymentsByUserIdAsync(Guid userId);
+        Task<IEnumerable<Domain.Payment>> GetPaymentsByUserIdAsync(Guid userId);
     }
 }
