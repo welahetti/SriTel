@@ -1,6 +1,5 @@
 using Payments.Application;
 using Payments.Infrastructure;
-using Payments.Service.Payment.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +13,7 @@ builder.Services.AddSwaggerGen();
 // Register PaymentDbContext using AddDbContext
 builder.Services.AddDbContext<PaymentDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PaymentDbConnection"));
 });
 
 // Register dependencies

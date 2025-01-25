@@ -11,6 +11,18 @@
           "Port": 7053
         }
       ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Payment/{everything}",
+      "UpstreamPathTemplate": "/api/Payment/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7250
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {

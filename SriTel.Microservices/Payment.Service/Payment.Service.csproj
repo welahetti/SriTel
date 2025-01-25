@@ -1,11 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
+<PropertyGroup>
+  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+</PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+<PropertyGroup>
+  <AssemblyCompany>Payment.Service</AssemblyCompany>
+  <AssemblyProduct>Payment.Service</AssemblyProduct>
+  <AssemblyTitle>Payment.Service</AssemblyTitle>
+  <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+  <AssemblyInformationalVersion>1.0.0+10bbdc94a2ee59ad600f85855455e27b3c263ef2</AssemblyInformationalVersion>
+</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
@@ -16,7 +25,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
     <PackageReference Include="NUnit" Version="4.3.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
-    <PackageReference Include="xunit.extensibility.core" Version="2.9.3" />
   </ItemGroup>  
 
   <ItemGroup>
@@ -31,12 +39,4 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
-
-<ItemGroup>
-  <ProjectReference Include="..\Payment.API\Payment.API.csproj" />
-  <ProjectReference Include="..\Payment.Application\Payment.Application.csproj" />
-  <ProjectReference Include="..\Payment.Domain\Payment.Domain.csproj" />
-  <ProjectReference Include="..\Payment.Infrastructure\Payment.Infrastructure.csproj" />
-</ItemGroup>
 </Project>

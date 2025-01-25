@@ -5,18 +5,18 @@ using SriTel.ApiGateway;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add logging services
+// Logging
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
-// **Add Ocelot services**: Ocelot is used for API Gateway routing
+// Ocelot
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 builder.Services.AddOcelot(builder.Configuration);
 
-// **Add services to the container**: Controllers are required for API routes
+// Add controllers
 builder.Services.AddControllers();
 
-// **Add Swagger services**: This will generate the Swagger UI and OpenAPI documentation
+// Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -28,36 +28,40 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Add HttpClient for DI
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
-// **Middleware**: Custom middleware for Swagger aggregation if needed
+// Custom Middleware
 app.UseMiddleware<SwaggerAggregatorMiddleware>();
 
-// **Configure the HTTP request pipeline**
-
+// Enable Swagger in Development
 if (app.Environment.IsDevelopment())
 {
-    // Enable Swagger and Swagger UI in development mode
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Gateway with Downstream Services");
     });
 }
-app.UseCors(builder =>
-    builder.WithOrigins("http://localhost:8080") // Frontend URL
-           .AllowAnyHeader()
-           .AllowAnyMethod());
-// **Add Routing**: Enable routing to map requests to controllers
+
+// CORS
+app.UseCors(policy =>
+    policy.WithOrigins("http://localhost:8080")
+          .AllowAnyHeader()
+          .AllowAnyMethod());
+
+// Routing
 app.UseRouting();
 
-// **Authorization Middleware**: Optional, depending on your authorization setup
+// Authorization Middleware (if required)
 app.UseAuthorization();
 
-// **Map Controllers**: Map the API controllers defined in your project
+// Map Controllers
 app.MapControllers();
 
-// **Configure Ocelot middleware**: Ocelot will handle API Gateway routing
-app.UseOcelot().Wait();
+// Ocelot Middleware
+await app.UseOcelot();
 
 app.Run();
