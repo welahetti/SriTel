@@ -4,6 +4,7 @@ namespace Payments.Infrastructure
 {
     public interface IPaymentRepository
     {
-        Task<IEnumerable<Domain.Payment>> GetPaymentsByUserIdAsync(Guid userId);
+        Task<IEnumerable<Payment>> GetPaymentsByBillIdAsync(Guid billId);
+        Task<IEnumerable<Payment>> GetPaymentsByUserIdAsync(Guid userId);
     }
 }

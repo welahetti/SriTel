@@ -30,6 +30,21 @@ namespace Payments.API
             }
             return Ok(payments);
         }
+
+        [HttpGet("bill/{billId}")]
+        public async Task<IActionResult> GetPaymentsByBillId(Guid billId)
+        {
+            var payments = await _paymentService.GetPaymentsByBillIdAsync(billId);
+
+            if (payments == null || !payments.Any())
+            {
+                return NotFound(new { Message = $"No payments found for Bill ID: {billId}" });
+            }
+
+            return Ok(payments);
+        }
+
+
     }
 }
 
