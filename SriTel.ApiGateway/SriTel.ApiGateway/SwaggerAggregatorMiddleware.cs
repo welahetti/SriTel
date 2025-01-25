@@ -20,7 +20,7 @@ namespace SriTel.ApiGateway
 
         public async Task InvokeAsync(HttpContext context)
         {
-            if (context.Request.Path.StartsWithSegments("/swagger/"))
+            if (context.Request.Path.Equals("/swagger/v1/swagger.json", StringComparison.OrdinalIgnoreCase))
             {
                 var billingServiceUrl = _configuration["Services:Billing"];
                 var paymentServiceUrl = _configuration["Services:Payment"];
@@ -47,20 +47,38 @@ namespace SriTel.ApiGateway
 
             await _next(context);
         }
-
         private string MergeSwaggerDocuments(string billingSwagger, string paymentSwagger)
         {
             dynamic billingDoc = Newtonsoft.Json.JsonConvert.DeserializeObject(billingSwagger);
             dynamic paymentDoc = Newtonsoft.Json.JsonConvert.DeserializeObject(paymentSwagger);
 
+            // Merge paths
             foreach (var path in paymentDoc.paths)
             {
-                billingDoc.paths[path.Name] = path.Value;
+                if (billingDoc.paths[path.Name] == null)
+                {
+                    billingDoc.paths[path.Name] = path.Value;
+                }
+                else
+                {
+                    billingDoc.paths[$"/payment{path.Name}"] = path.Value; // Prefix to avoid conflicts
+                }
             }
 
-            foreach (var schema in paymentDoc.components.schemas)
+            // Merge schemas if they exist
+            if (paymentDoc.components != null && paymentDoc.components.schemas != null)
             {
-                billingDoc.components.schemas[schema.Name] = schema.Value;
+                foreach (var schema in paymentDoc.components.schemas)
+                {
+                    if (billingDoc.components.schemas[schema.Name] == null)
+                    {
+                        billingDoc.components.schemas[schema.Name] = schema.Value;
+                    }
+                    else
+                    {
+                        billingDoc.components.schemas[$"Payment_{schema.Name}"] = schema.Value; // Prefix to avoid conflicts
+                    }
+                }
             }
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(billingDoc);
