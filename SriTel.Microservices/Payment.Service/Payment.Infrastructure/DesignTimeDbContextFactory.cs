@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 using Payments.Infrastructure;
+using Microsoft.Extensions.Configuration;
 
 namespace Payments.Service.Payment.Infrastructure
 {
@@ -10,10 +10,10 @@ namespace Payments.Service.Payment.Infrastructure
         public PaymentDbContext CreateDbContext(string[] args)
         {
             // Get the directory of the Web API project (make sure this matches your directory structure)
-            var webApiProjectDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + "\\");
+            var webApiProjectDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + "\\Payment.API\\");
 
             // Build the configuration using the correct path to appsettings.json
-            var configuration = new ConfigurationBuilder()
+            var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
                 .SetBasePath(webApiProjectDir)  // Set base path to the Web API project directory
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)  // Use appsettings.json from Web API
                 .Build();
