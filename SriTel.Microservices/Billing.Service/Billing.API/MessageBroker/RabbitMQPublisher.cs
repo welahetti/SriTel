@@ -25,14 +25,13 @@ public class RabbitMQPublisher : IDisposable
         _channel.ExchangeDeclare(exchange: "billing_exchange", type: ExchangeType.Fanout);
     }
 
-    public void Publish(string exchange, string message)
+    public void Publish(string message)
     {
         try
         {
             var body = Encoding.UTF8.GetBytes(message);
-
-            // Publish the message
-            _channel.BasicPublish(exchange: exchange, routingKey: "", basicProperties: null, body: body);
+            _channel.BasicPublish(exchange: "billing_exchange", routingKey: "", basicProperties: null, body: body);
+            Console.WriteLine("Message successfully published to RabbitMQ.");
         }
         catch (Exception ex)
         {
@@ -40,6 +39,7 @@ public class RabbitMQPublisher : IDisposable
             throw;
         }
     }
+
 
     public void Dispose()
     {

@@ -1,11 +1,16 @@
 using Payments.Application;
 using Payments.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Payment.API.MessageBroker;
-using Payment.API.Configuration;
+using Payments.Service.Payment.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Register PaymentDbContext using AddDbContext
+builder.Services.AddScoped<PaymentDbContext>(provider =>
+{
+    var factory = new DesignTimeDbContextFactory(); // Create an instance of the factory
+    return factory.CreateDbContext(args: null);     // Use the factory to create the DbContext
+});
 // Add RabbitMQ consumer as a background service
 builder.Services.AddHostedService<RabbitMQConsumer>();
 
@@ -15,11 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register PaymentDbContext using AddDbContext
-builder.Services.AddDbContext<PaymentDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PaymentDbConnection"));
-});
+
 
 // Register dependencies
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();

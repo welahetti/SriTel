@@ -3,6 +3,7 @@ using SriTel.Billing.Application.Services.Interfaces;
 using Billing.API.MessageBroker;
 using Billing.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace SriTel.Billing.Application.Services
 {
@@ -61,26 +62,28 @@ namespace SriTel.Billing.Application.Services
                 Event = "BillCreated",
                 Data = bill
             };
-            _publisher.Publish(Convert.ToString(billEvent.Data.BillID),"bill created");
+            //_publisher.Publish(Convert.ToString(billEvent.Data.BillID),"bill created");
 
             await _billRepository.AddBillAsync(bill);
-           
-        }
+            // Create an event for RabbitMQ
+            var billCreatedEvent = new
+            {
+                Event = "BillCreated",
+                Data = new
+                {
+                    BillID = bill.BillID,
+                    UserID = bill.UserID,
+                    Amount = bill.Amount,
+                    DueDate = bill.DueDate,
+                    BillingDate = bill.BillingDate,
+                    IsPaid=bill.IsPaid 
+                }
+            };
 
-        public async Task<bool> MarkBillAsPaidAsync(Guid billId)
-        {
-            var bill = await _billRepository.GetBillByBillIdAsync(billId);
-            if (bill == null) throw new Exception("Bill not found");
+            // Publish the event to RabbitMQ
+            var message = JsonSerializer.Serialize(billCreatedEvent);
+            _publisher.Publish( message);
 
-            bill.IsPaid = true;
-            await _billRepository.SaveChangesAsync();
-
-            return true;
-        }
-
-        public Task<bool> MarkBillAsPaidAsync(int billId)
-        {
-            throw new NotImplementedException();
         }
 
       

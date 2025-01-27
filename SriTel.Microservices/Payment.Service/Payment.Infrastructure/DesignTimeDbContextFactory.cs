@@ -10,7 +10,7 @@ namespace Payments.Service.Payment.Infrastructure
         public PaymentDbContext CreateDbContext(string[] args)
         {
             // Get the directory of the Web API project (make sure this matches your directory structure)
-            var webApiProjectDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + "\\Payment.API\\");
+            var webApiProjectDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + "\\Payment.Service\\Payment.API\\");
 
             // Build the configuration using the correct path to appsettings.json
             var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder()

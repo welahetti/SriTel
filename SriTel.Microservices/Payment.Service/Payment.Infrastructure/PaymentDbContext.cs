@@ -15,7 +15,12 @@ namespace Payments.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Domain.Payment>().HasKey(p => p.PaymentID);
+            modelBuilder.Entity<Domain.Payment>(entity =>
+            {
+                entity.HasKey(p => p.PaymentID);
+                entity.Property(p => p.AmountPaid).IsRequired();
+                entity.Property(p => p.PaymentDate).IsRequired();
+            });
         }
     }
 
