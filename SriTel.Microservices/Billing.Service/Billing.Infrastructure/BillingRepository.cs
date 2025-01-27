@@ -25,7 +25,8 @@ namespace Billing.Repositories.Implementations
 
         public async Task AddBillAsync(Bill bill)
         {
-            await _context.Bills.AddAsync(bill);
+            _context.Bills.AddAsync(bill);
+            await _context.SaveChangesAsync(); // Save changes to the database
         }
 
         public async Task SaveChangesAsync()

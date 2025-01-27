@@ -1,4 +1,5 @@
-﻿using Billing.Domain;
+﻿using Billing.API.DTOs;
+using Billing.Domain;
 using Microsoft.AspNetCore.Mvc;
 using SriTel.Billing.Application.Services.Interfaces;
 
@@ -46,28 +47,31 @@ namespace Billing.API
 
         // POST: api/bills
         [HttpPost]
-        public async Task<IActionResult> CreateBill([FromBody] Bill bill)
+        [Route("create")]
+        public async Task<IActionResult> CreateBill([FromBody] CreateBillDTO createBillDTO)
         {
-            if (bill == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Bill data is required.");
+                return BadRequest(ModelState);
             }
 
-            try
+            // Map DTO to domain model
+            var bill = new Bill
             {
-                // Create the bill asynchronously
-                await _billingService.CreateBillAsync(bill);
+                BillID = Guid.NewGuid(), // Generate a new ID
+                UserID = createBillDTO.UserID,
+                Amount = createBillDTO.Amount,
+                DueDate = createBillDTO.DueDate,
+                BillingDate = DateTime.UtcNow, // Set the billing date to current UTC
+                IsPaid = false
+            };
 
-                // Return a success response with the BillID (or other details if needed)
-                return CreatedAtAction(nameof(CreateBill), new { billId = bill.BillID }, bill);
-            }
-            catch (Exception ex)
-            {
-                // Handle any unexpected errors
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            await _billingService.CreateBillAsync(bill);
+
+            return Ok(new { Message = "Bill created successfully", BillID = bill.BillID });
         }
-
     }
+
 }
+
 

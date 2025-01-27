@@ -2,6 +2,7 @@
 using SriTel.Billing.Application.Services.Interfaces;
 using Billing.API.MessageBroker;
 using Billing.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace SriTel.Billing.Application.Services
 {
@@ -63,6 +64,7 @@ namespace SriTel.Billing.Application.Services
             _publisher.Publish(Convert.ToString(billEvent.Data.BillID),"bill created");
 
             await _billRepository.AddBillAsync(bill);
+           
         }
 
         public async Task<bool> MarkBillAsPaidAsync(Guid billId)
