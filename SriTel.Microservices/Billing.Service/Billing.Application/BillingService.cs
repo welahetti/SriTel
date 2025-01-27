@@ -1,24 +1,25 @@
 ﻿using Billing.Domain;
-using Billing.Service.Billing.Application.ExternalServices;
 using SriTel.Billing.Application.Services.Interfaces;
-using SriTel.Billing.Repositories.Implementations;
-using SriTel.Billing.Repositories.Interfaces;
+using Billing.API.MessageBroker;
+using Billing.Repositories.Interfaces;
 
 namespace SriTel.Billing.Application.Services
 {
     public class BillingService : IBillingService
     {
         private readonly IBillingRepository _billRepository;
+        private readonly RabbitMQPublisher _publisher;
 
-        public BillingService(IBillingRepository billRepository)
+        public BillingService(IBillingRepository billRepository, RabbitMQPublisher publisher)
         {
             _billRepository = billRepository;
+            _publisher = publisher;
         }
       
 
         public async Task<Bill> GetBillByBillIdAsync(Guid billId)
         {
-            var bill = await _billRepository.GetBillAsync(billId);
+            var bill = await _billRepository.GetBillByBillIdAsync(billId);
             if (bill == null) throw new Exception("Bill not found");
 
             // Map to DTO
@@ -44,22 +45,29 @@ namespace SriTel.Billing.Application.Services
             });
         }
 
-        //public async Task CreateBillAsync(CreateBillDTO billDto)
-        //{
-        //    var bill = new Bill
-        //    {
-        //        UserID = billDto.UserID,
-        //        Amount = billDto.Amount,
-        //        DueDate = billDto.DueDate,
-        //        IsPaid = false
-        //    };
+        public async Task CreateBillAsync(Bill bill)
+        {
+            var billDTO = new Bill
+            {
+                UserID = bill.UserID,
+                Amount = bill.Amount,
+                DueDate = bill.DueDate,
+                IsPaid = false
+            };
+            // Publish the event
+            var billEvent = new
+            {
+                Event = "BillCreated",
+                Data = bill
+            };
+            _publisher.Publish(Convert.ToString(billEvent.Data.BillID),"bill created");
 
-        //    await _billRepository.AddAsync(bill);
-        //}
+            await _billRepository.AddBillAsync(bill);
+        }
 
         public async Task<bool> MarkBillAsPaidAsync(Guid billId)
         {
-            var bill = await _billRepository.GetBillAsync(billId);
+            var bill = await _billRepository.GetBillByBillIdAsync(billId);
             if (bill == null) throw new Exception("Bill not found");
 
             bill.IsPaid = true;

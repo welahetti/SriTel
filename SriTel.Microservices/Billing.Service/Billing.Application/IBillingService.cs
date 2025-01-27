@@ -6,5 +6,7 @@ namespace SriTel.Billing.Application.Services.Interfaces
     {
         Task<IEnumerable<Bill>> GetBillsByUserAsync(Guid userId);
         Task<Bill> GetBillByBillIdAsync(Guid billId);
+
+        Task CreateBillAsync(Bill bill);
     }
 }

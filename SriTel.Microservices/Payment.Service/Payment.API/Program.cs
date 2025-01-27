@@ -1,8 +1,13 @@
 using Payments.Application;
 using Payments.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Payment.API.MessageBroker;
+using Payment.API.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add RabbitMQ consumer as a background service
+builder.Services.AddHostedService<RabbitMQConsumer>();
 
 // Add services to the container.
 builder.Services.AddControllers();

@@ -12,10 +12,10 @@ namespace Payments.Application
             _paymentRepository = paymentRepository;
         }
 
-       public async Task<IEnumerable<Payment>> GetPaymentsByBillIdAsync(Guid billId)
+       public async Task<IEnumerable<Domain.Payment>> GetPaymentsByBillIdAsync(Guid billId)
         {
             var payments = await _paymentRepository.GetPaymentsByBillIdAsync(billId);
-            return payments.Select(payment => new Payment
+            return payments.Select(payment => new Domain.Payment
             {
                 PaymentID = payment.PaymentID,
                 AmountPaid = payment.AmountPaid,
@@ -25,10 +25,10 @@ namespace Payments.Application
 
 
 
-        public async Task<IEnumerable<Payment>> GetPaymentsByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Domain.Payment>> GetPaymentsByUserIdAsync(Guid userId)
         {
             var payments = await _paymentRepository.GetPaymentsByUserIdAsync(userId);
-            return payments.Select(payment => new Payment
+            return payments.Select(payment => new Domain.Payment
             {
                 PaymentID = payment.PaymentID,
                 AmountPaid = payment.AmountPaid,

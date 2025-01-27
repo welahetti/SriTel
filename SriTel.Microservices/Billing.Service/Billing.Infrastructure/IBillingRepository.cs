@@ -1,10 +1,10 @@
 ﻿using Billing.Domain;
 
-namespace SriTel.Billing.Repositories.Interfaces
+namespace Billing.Repositories.Interfaces
 {
     public interface IBillingRepository
     {
-        Task<Bill> GetBillAsync(Guid billId);
+        ////Task<Bill> GetBillAsync(Guid billId);
         Task<Bill> GetBillByBillIdAsync(Guid billId);
         Task<IEnumerable<Bill>> GetBillsByUserAsync(Guid userId);
         Task AddBillAsync(Bill bill);

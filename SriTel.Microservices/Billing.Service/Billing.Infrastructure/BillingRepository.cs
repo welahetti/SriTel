@@ -1,9 +1,9 @@
 ﻿using Billing.Domain;
 using Billing.Service.Billing.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using SriTel.Billing.Repositories.Interfaces;
+using Billing.Repositories.Interfaces;
 
-namespace SriTel.Billing.Repositories.Implementations
+namespace Billing.Repositories.Implementations
 {
     public class BillingRepository: IBillingRepository
     {
@@ -13,10 +13,10 @@ namespace SriTel.Billing.Repositories.Implementations
             _context = context;
         }
 
-        public async Task<Bill> GetBillAsync(Guid billId)
-        {
-            return await _context.Bills.Include(b => b.Payments).FirstOrDefaultAsync(b => b.BillID == billId);
-        }
+        //public async Task<Bill> GetBillAsync(Guid billId)
+        //{
+        //    return await _context.Bills.Include(b => b.Payments).FirstOrDefaultAsync(b => b.BillID == billId);
+        //}
 
         public async Task<IEnumerable<Bill>> GetBillsByUserAsync(Guid userId)
         {
@@ -37,12 +37,5 @@ namespace SriTel.Billing.Repositories.Implementations
         {
             return await _context.Bills.FirstOrDefaultAsync(b => b.BillID == billId);
         }
-
-        public Task<IEnumerable<Bill>> GetBillsByBillIdAsync(int billId)
-        {
-            throw new NotImplementedException();
-        }
-
-       
     }
 }

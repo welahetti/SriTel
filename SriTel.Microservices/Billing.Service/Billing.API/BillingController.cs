@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SriTel.Billing.Application.Services;
+﻿using Billing.Domain;
+using Microsoft.AspNetCore.Mvc;
 using SriTel.Billing.Application.Services.Interfaces;
 
 namespace Billing.API
@@ -41,6 +41,30 @@ namespace Billing.API
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+        // POST: api/bills
+        [HttpPost]
+        public async Task<IActionResult> CreateBill([FromBody] Bill bill)
+        {
+            if (bill == null)
+            {
+                return BadRequest("Bill data is required.");
+            }
+
+            try
+            {
+                // Create the bill asynchronously
+                await _billingService.CreateBillAsync(bill);
+
+                // Return a success response with the BillID (or other details if needed)
+                return CreatedAtAction(nameof(CreateBill), new { billId = bill.BillID }, bill);
+            }
+            catch (Exception ex)
+            {
+                // Handle any unexpected errors
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
 
