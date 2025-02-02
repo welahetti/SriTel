@@ -1,0 +1,7 @@
+{
+  "cardNumber": "4111111111111111",
+  "amount": 1000,
+  "currency": "LKR",
+  "transactionId": "txn12345"
+}
+txn12345
