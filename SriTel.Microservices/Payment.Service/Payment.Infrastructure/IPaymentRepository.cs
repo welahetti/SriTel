@@ -6,5 +6,6 @@ namespace Payments.Infrastructure
     {
         Task<IEnumerable<Domain.Payment>> GetPaymentsByBillIdAsync(Guid billId);
         Task<IEnumerable<Domain.Payment>> GetPaymentsByUserIdAsync(Guid userId);
+        Task AddPaymentAsync(Domain.Payment payment);
     }
 }

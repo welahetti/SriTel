@@ -20,7 +20,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+// Register HttpClient
+builder.Services.AddHttpClient("PaymentGateway", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7289"); // Replace with the actual URL of Mock.PaymentGateway
+});
 
 // Register dependencies
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();

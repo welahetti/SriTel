@@ -35,5 +35,6 @@ namespace Payments.Domain
 
         // Navigation property
         public Bill Bill { get; set; }
+        
     }
 }
