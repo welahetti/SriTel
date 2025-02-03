@@ -1,5 +1,6 @@
-﻿using Billing.API.DTOs;
+﻿using Billing.Application.DTO;
 using Billing.Domain;
+using Billing.Service.Billing.Application.DTO;
 using Microsoft.AspNetCore.Mvc;
 using SriTel.Billing.Application.Services.Interfaces;
 

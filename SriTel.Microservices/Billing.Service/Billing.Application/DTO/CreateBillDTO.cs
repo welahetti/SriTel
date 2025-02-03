@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Billing.API.DTOs
+namespace Billing.Application.DTO
 {
     public class CreateBillDTO
     {
