@@ -4,9 +4,9 @@ namespace Customers.Infrastructure
 {
     public interface ICustomerRepository
     {
-        Task AddCustomerAsync(Customer customer);
-        Task<Customer> GetCustomerByEmailAsync(string email);
-        Task<Customer> GetCustomerByIdAsync(Guid id);
-        Task UpdateCustomerAsync(Customer customer);
+        Task AddCustomerAsync(Domain.Customer customer);
+        Task<Domain.Customer> GetCustomerByEmailAsync(string email);
+        Task<Domain.Customer> GetCustomerByIdAsync(Guid id);
+        Task UpdateCustomerAsync(Domain.Customer customer);
     }
 }

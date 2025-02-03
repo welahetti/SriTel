@@ -1,7 +1,5 @@
 using Payments.Application;
 using Payments.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using Payments.Service.Payment.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -21,7 +21,7 @@ namespace Customers.Application
                 throw new InvalidOperationException("Customer with this email already exists.");
             }
 
-            var customer = new Customer
+            var customer = new Domain.Customer
             {
                 CustomerId = Guid.NewGuid(),
                 FullName = string.Empty,
@@ -72,7 +72,7 @@ namespace Customers.Application
             return true;
         }
 
-        public async Task<Customer> GetCustomerByIdAsync(Guid id)
+        public async Task<Domain.Customer> GetCustomerByIdAsync(Guid id)
         {
             var customer = await _customerRepository.GetCustomerByIdAsync(id);
             if (customer == null)

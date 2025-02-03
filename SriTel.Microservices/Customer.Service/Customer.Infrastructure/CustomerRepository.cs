@@ -13,19 +13,19 @@ namespace Customers.Infrastructure
             return Task.CompletedTask;
         }
 
-        public Task<Customer> GetCustomerByEmailAsync(string email)
+        public Task<Domain.Customer> GetCustomerByEmailAsync(string email)
         {
             var customer = _customers.FirstOrDefault(c => c.Email == email);
             return Task.FromResult(customer);
         }
 
-        public Task<Customer> GetCustomerByIdAsync(Guid id)
+        public Task<Domain.Customer> GetCustomerByIdAsync(Guid id)
         {
             var customer = _customers.FirstOrDefault(c => c.CustomerId == id);
             return Task.FromResult(customer);
         }
 
-        public Task UpdateCustomerAsync(Customer customer)
+        public Task UpdateCustomerAsync(Domain.Customer customer)
         {
             var existing = _customers.FirstOrDefault(c => c.CustomerId == customer.CustomerId);
             if (existing != null)

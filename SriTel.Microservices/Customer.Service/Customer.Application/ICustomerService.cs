@@ -10,7 +10,7 @@ namespace Customers.Application
         Task<bool> AuthenticateCustomerAsync(string email, string password);
         Task<bool> ResetPasswordAsync(ResetPasswordRequest request);
         Task<bool> UpdateProfileAsync(UpdateProfileRequest request);
-        Task<Customer> GetCustomerByIdAsync(Guid id);
+        Task<Domain.Customer> GetCustomerByIdAsync(Guid id);
     }
 
 }

@@ -8,11 +8,11 @@ namespace Customers.Infrastructure
     {
         public CustomerDbContext CreateDbContext(string[] args)
         {
-            // Get the directory of the Web API project
-            var webApiProjectDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "Customer.Service", "Customer.API");
+            // Get the directory of the Web API project (make sure this matches your directory structure)
+            var webApiProjectDir = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + "\\Customer.API\\");
 
             // Build the configuration using the correct path to appsettings.json
-            var configuration = new ConfigurationBuilder()
+            var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
                 .SetBasePath(webApiProjectDir)  // Set base path to the Web API project directory
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)  // Use appsettings.json from Web API
                 .Build();

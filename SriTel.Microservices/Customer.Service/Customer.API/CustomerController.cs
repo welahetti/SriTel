@@ -3,7 +3,7 @@ using Customers.Application.DTO;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Customer.Service.Customer.API
+namespace Customers.API
 {
     [ApiController]
     [Route("api/customers")]
