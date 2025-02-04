@@ -1,6 +1,8 @@
 using Customers.Infrastructure;
 using Customers.Application;
 using Mock.Provisioning.Service;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,7 @@ builder.Services.AddScoped<CustomerDbContext>(provider =>
     var factory = new DesignTimeDbContextFactory(); // Create an instance of the factory
     return factory.CreateDbContext(args: null);     // Use the factory to create the DbContext
 });
+
 
 
 // Add services to the container.
