@@ -20,4 +20,8 @@
     <ProjectReference Include="..\External Services\Mock.Provisioning.Service\Mock.Provisioning.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Customers\" />
+  </ItemGroup>
+
 </Project>

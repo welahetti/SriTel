@@ -1,4 +1,4 @@
-﻿namespace Customers.Application.DTO
+﻿namespace Customer.Service.Customer.API.DTO
 {
     public class UpdateProfileRequest
     {

@@ -1,5 +1,6 @@
 using Customers.Infrastructure;
 using Customers.Application;
+using Mock.Provisioning.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +19,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register HttpClient
-builder.Services.AddHttpClient("CustomerGateway", client =>
+builder.Services.AddHttpClient("ProvisionGateway", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7289"); // Replace with the actual URL of Mock.CustomerGateway
+    client.BaseAddress = new Uri("https://localhost:7032"); // Replace with the actual URL of Mock.CustomerGateway
 });
 
-// Register dependencies
+
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 

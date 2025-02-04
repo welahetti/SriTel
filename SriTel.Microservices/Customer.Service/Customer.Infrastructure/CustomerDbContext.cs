@@ -7,6 +7,7 @@ namespace Customers.Infrastructure
     {
         public CustomerDbContext(DbContextOptions<CustomerDbContext> options) : base(options) { }
         public DbSet<Domain.Customer> Customers { get; set; }
+        public DbSet<Bill> Bills { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
