@@ -1,5 +1,4 @@
 ﻿using Customers.Application;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Mock.Provisioning.Service;
 using SriTel.Billing.Application.Services.Interfaces;

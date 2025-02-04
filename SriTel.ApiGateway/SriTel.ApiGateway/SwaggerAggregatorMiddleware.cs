@@ -24,14 +24,17 @@ namespace SriTel.ApiGateway
             {
                 var billingServiceUrl = _configuration["Services:Billing"];
                 var paymentServiceUrl = _configuration["Services:Payment"];
+                var customerServiceUrl = _configuration["Services:Customer"];
                 var client = _httpClientFactory.CreateClient();
 
                 try
                 {
+                    var customerSwagger = await client.GetStringAsync($"{customerServiceUrl}/swagger/v1/swagger.json");
                     var billingSwagger = await client.GetStringAsync($"{billingServiceUrl}/swagger/v1/swagger.json");
                     var paymentSwagger = await client.GetStringAsync($"{paymentServiceUrl}/swagger/v1/swagger.json");
 
-                    var mergedSwagger = MergeSwaggerDocuments(billingSwagger, paymentSwagger);
+
+                    var mergedSwagger = MergeSwaggerDocuments(customerSwagger,billingSwagger, paymentSwagger);
 
                     context.Response.ContentType = "application/json";
                     await context.Response.WriteAsync(mergedSwagger);
@@ -47,12 +50,27 @@ namespace SriTel.ApiGateway
 
             await _next(context);
         }
-        private string MergeSwaggerDocuments(string billingSwagger, string paymentSwagger)
+        private string MergeSwaggerDocuments(string customerSwagger, string billingSwagger, string paymentSwagger)
         {
+            // Deserialize all Swagger documents
+            dynamic customerDoc = Newtonsoft.Json.JsonConvert.DeserializeObject(customerSwagger);
             dynamic billingDoc = Newtonsoft.Json.JsonConvert.DeserializeObject(billingSwagger);
             dynamic paymentDoc = Newtonsoft.Json.JsonConvert.DeserializeObject(paymentSwagger);
 
-            // Merge paths
+            // Merge customer paths into billingDoc
+            foreach (var path in customerDoc.paths)
+            {
+                if (billingDoc.paths[path.Name] == null)
+                {
+                    billingDoc.paths[path.Name] = path.Value;
+                }
+                else
+                {
+                    billingDoc.paths[$"/customer{path.Name}"] = path.Value; // Prefix to avoid conflicts
+                }
+            }
+
+            // Merge payment paths into billingDoc
             foreach (var path in paymentDoc.paths)
             {
                 if (billingDoc.paths[path.Name] == null)
@@ -65,7 +83,23 @@ namespace SriTel.ApiGateway
                 }
             }
 
-            // Merge schemas if they exist
+            // Merge customer schemas into billingDoc
+            if (customerDoc.components != null && customerDoc.components.schemas != null)
+            {
+                foreach (var schema in customerDoc.components.schemas)
+                {
+                    if (billingDoc.components.schemas[schema.Name] == null)
+                    {
+                        billingDoc.components.schemas[schema.Name] = schema.Value;
+                    }
+                    else
+                    {
+                        billingDoc.components.schemas[$"Customer_{schema.Name}"] = schema.Value; // Prefix to avoid conflicts
+                    }
+                }
+            }
+
+            // Merge payment schemas into billingDoc
             if (paymentDoc.components != null && paymentDoc.components.schemas != null)
             {
                 foreach (var schema in paymentDoc.components.schemas)
@@ -81,7 +115,9 @@ namespace SriTel.ApiGateway
                 }
             }
 
+            // Return the merged Swagger document as a JSON string
             return Newtonsoft.Json.JsonConvert.SerializeObject(billingDoc);
         }
+
     }
 }
