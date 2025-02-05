@@ -22,9 +22,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "SriTel API Gateway",
+        Title = "SriTel API Gateway Documentation", // Corrected Title
         Version = "v1",
-        Description = "API Gateway for SriTel Microservices using Ocelot."
+        Description = "Consolidated API Gateway for SriTel Microservices using Ocelot."
     });
 });
 
@@ -48,7 +48,7 @@ if (app.Environment.IsDevelopment())
 
 // CORS
 app.UseCors(policy =>
-    policy.WithOrigins("http://localhost:8080")
+    policy.WithOrigins("http://localhost:8081")
           .AllowAnyHeader()
           .AllowAnyMethod());
 

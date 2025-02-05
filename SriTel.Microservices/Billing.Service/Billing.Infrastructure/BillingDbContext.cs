@@ -1,7 +1,7 @@
 ﻿using Billing.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Billing.Service.Billing.Infrastructure
+namespace Billing.Infrastructure
 {
     public class BillingDbContext : DbContext
     {

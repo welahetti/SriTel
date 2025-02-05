@@ -7,6 +7,7 @@ using RabbitMQ.Client;
 using SriTel.Billing.Application.Services.Interfaces;
 using SriTel.Billing.Application.Services;
 using Billing.API.MessageBroker.Configuration;
+using Billing.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 // Ensure appsettings.json is explicitly added to the configuration

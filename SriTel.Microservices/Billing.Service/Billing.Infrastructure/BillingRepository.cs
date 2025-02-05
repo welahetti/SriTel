@@ -2,6 +2,7 @@
 using Billing.Service.Billing.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Billing.Repositories.Interfaces;
+using Billing.Infrastructure;
 
 namespace Billing.Repositories.Implementations
 {

@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-
-namespace SriTel.ApiGateway
+﻿namespace SriTel.ApiGateway
 {
     public class SwaggerAggregatorMiddleware
     {
@@ -59,13 +54,16 @@ namespace SriTel.ApiGateway
             dynamic billingDoc = Newtonsoft.Json.JsonConvert.DeserializeObject(billingSwagger);
             dynamic paymentDoc = Newtonsoft.Json.JsonConvert.DeserializeObject(paymentSwagger);
 
-            // Merge Paths
+            // Merge Paths with prefixes to avoid duplicates
             MergePaths(customerDoc, billingDoc, "customer");
             MergePaths(paymentDoc, billingDoc, "payment");
 
-            // Merge Schemas
+            // Merge Schemas with prefixes
             MergeSchemas(customerDoc, billingDoc, "Customer");
             MergeSchemas(paymentDoc, billingDoc, "Payment");
+
+            // Update Title
+            billingDoc.info.title = "SriTel API Gateway Documentation";
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(billingDoc);
         }
@@ -76,16 +74,15 @@ namespace SriTel.ApiGateway
 
             foreach (var path in sourceDoc.paths)
             {
-                if (targetDoc.paths[path.Name] == null)
+                var newPath = $"/{prefix}{path.Name}"; // Add prefix to avoid duplicates
+
+                if (targetDoc.paths[newPath] == null) // Avoid overriding existing paths
                 {
-                    targetDoc.paths[path.Name] = path.Value;
-                }
-                else
-                {
-                    targetDoc.paths[$"/{prefix}{path.Name}"] = path.Value; // Avoid conflicts
+                    targetDoc.paths[newPath] = path.Value;
                 }
             }
         }
+
 
         private void MergeSchemas(dynamic sourceDoc, dynamic targetDoc, string prefix)
         {
